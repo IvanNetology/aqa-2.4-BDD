@@ -3,7 +3,8 @@ package ru.netology.web.data;
 import lombok.Value;
 
 public class DataHelper {
-    private DataHelper() {}
+    private DataHelper() {
+    }
 
     @Value
     public static class AuthInfo {
@@ -14,10 +15,6 @@ public class DataHelper {
     public static AuthInfo getAuthInfo() {
         return new AuthInfo("vasya", "qwerty123");
     }
-
-//    public static AuthInfo getOtherAuthInfo(AuthInfo original) {
-//        return new AuthInfo("petya", "123qwerty");
-//    }
 
     @Value
     public static class VerificationCode {
@@ -33,7 +30,12 @@ public class DataHelper {
         private String summa;
         private String number;
     }
-    public static CardInfo getCardInfoFor(AuthInfo authInfo) {
+
+    public static CardInfo getInfoForTransfer(AuthInfo authInfo) {
         return new CardInfo("500", "5559 0000 0000 0001");
     }
+
+//    public static CardInfo getOtherInfoForTransfer(AuthInfo authInfo) {
+//        return new CardInfo("10500", "5559 0000 0000 0001");
+//    }
 }

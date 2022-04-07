@@ -1,5 +1,6 @@
 package ru.netology.web.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
@@ -42,18 +43,18 @@ class MoneyTransferTest {
   }
 
   @Test
-  void shouldTransferMoneyBetweenOwnCardsV2My() {
+  void shouldSuccessTransferMoneyBetweenOwnCards() {
     open("http://localhost:9999");
     var loginPage = new LoginPageV2();
     var authInfo = DataHelper.getAuthInfo();
     var verificationPage = loginPage.validLogin(authInfo);
     var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
     verificationPage.validVerify(verificationCode);
-
     var dashboardPage = new DashboardPage();
-    var cardInfo = DataHelper.getCardInfoFor(authInfo);
+    var cardInfo = DataHelper.getInfoForTransfer(authInfo);
     dashboardPage.successTransferCard1ToCard2(cardInfo);
-
+    Assertions.assertEquals(9500, dashboardPage.getCardBalance("92df3f1c-a033-48e6-8390-206f6b1f56c0"));
+    Assertions.assertEquals(10500, dashboardPage.getCardBalance("0f3f5c2a-249e-4c3d-8287-09f7a039391d"));
   }
 }
 

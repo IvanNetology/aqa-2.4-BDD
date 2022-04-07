@@ -35,7 +35,7 @@ public class DataHelper {
         return new CardInfo("500", "5559 0000 0000 0001");
     }
 
-//    public static CardInfo getOtherInfoForTransfer(AuthInfo authInfo) {
-//        return new CardInfo("10500", "5559 0000 0000 0001");
-//    }
+    public static CardInfo getOtherInfoForTransfer(AuthInfo authInfo) {
+        return new CardInfo("10500", "5559 0000 0000 0001");
+    }
 }

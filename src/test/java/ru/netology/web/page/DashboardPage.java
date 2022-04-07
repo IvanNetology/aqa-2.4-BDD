@@ -31,6 +31,14 @@ public class DashboardPage {
         return new DashboardPage();
     }
 
+    public DashboardPage failureTransferCard1ToCard2(DataHelper.CardInfo cardInfo) {
+        cardButton.last().click();
+        amount.setValue(cardInfo.getSumma());
+        from.setValue(cardInfo.getNumber());
+        transferButton.click();
+        return new DashboardPage();
+    }
+
     public int getCardBalance(String id) {
         for (SelenideElement card : cards) {
             if (card.toString().contains(id)) {

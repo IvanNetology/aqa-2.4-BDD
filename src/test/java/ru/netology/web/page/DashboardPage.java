@@ -5,6 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 import ru.netology.web.data.DataHelper;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -12,9 +14,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class DashboardPage {
     private SelenideElement heading = $("[data-test-id=dashboard]");
     private ElementsCollection cardButton = $$("[data-test-id=action-deposit]");
-    private SelenideElement amount = $("[data-test-id=amount] input");
-    private SelenideElement from = $("[data-test-id=from] input");
-    private SelenideElement transferButton = $("[data-test-id=action-transfer]");
     private ElementsCollection cards = $$(".list__item div");
     private final String balanceStart = "баланс: ";
     private final String balanceFinish = " р.";
@@ -23,25 +22,19 @@ public class DashboardPage {
         heading.shouldBe(visible);
     }
 
-    public DashboardPage successTransferCard1ToCard2(DataHelper.CardInfo cardInfo) {
+    public TransferPage shouldTransferCard1ToCard2() {
         cardButton.last().click();
-        amount.setValue(cardInfo.getSumma());
-        from.setValue(cardInfo.getNumber());
-        transferButton.click();
-        return new DashboardPage();
+        return new TransferPage();
     }
 
-    public DashboardPage failureTransferCard1ToCard2(DataHelper.CardInfo cardInfo) {
-        cardButton.last().click();
-        amount.setValue(cardInfo.getSumma());
-        from.setValue(cardInfo.getNumber());
-        transferButton.click();
-        return new DashboardPage();
+    public TransferPage shouldTransferCard2ToCard1() {
+        cardButton.first().click();
+        return new TransferPage();
     }
 
     public int getCardBalance(String id) {
         for (SelenideElement card : cards) {
-            if (card.toString().contains(id)) {
+            if (Objects.equals(card.getDomAttribute("data-test-id"), id)) {
                 val text = card.text();
                 return extractBalance(text);
             }
